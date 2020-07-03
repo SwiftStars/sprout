@@ -44,6 +44,6 @@ Some notes:
 ## Installation
 You can install Sprout with Mint:
 ```shell
-mint install BenSova/sprout
+mint install SwiftStars/sprout
 ```
 (Alternatives coming...)
