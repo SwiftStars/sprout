@@ -1,0 +1,34 @@
+#
+# Sprout Example Code
+#
+
+% projectname: My Swift
+% cliname: myswift
+% builtcli: .build/release/myswift
+% giturl: https://github.com/SwiftStars/MySwift.git
+% website: https://myswiftstuff.com/package
+
+% build {
+
+swift build -c release
+
+% }
+
+# How this SproutFile Works:
+#   Once Sprout finds this file, it seperates it line by line
+#   into an Array that it decoded into a Dictionary containing
+#   commands for how to run installation.
+#
+#   Lines 1-3 and 15-23 are ignored since comments (#) at the
+#   begaining of a line mean ignored lines.
+#   NOTE: Comments in the middle of a line are ignored.
+#
+#   Lines 5-7 provide details on this package, like the project's
+#   name, it's name when using it on the command line, where the
+#   fully built CLI is, the url used to clone the package's source
+#   code, and the website for the package.
+#
+#   Lines 9-13 provide the steps required to build the package.
+#   In this case, Sprout is being told to run a command, swift build
+#   -c release, which builds the Swift package for release.
+#

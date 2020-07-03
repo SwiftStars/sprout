@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Files",
+        "repositoryURL": "https://github.com/JohnSundell/Files",
+        "state": {
+          "branch": null,
+          "revision": "22fe84797d499ffca911ccd896b34efaf06a50b9",
+          "version": "4.1.1"
+        }
+      },
+      {
+        "package": "ShellOut",
+        "repositoryURL": "https://github.com/JohnSundell/ShellOut.git",
+        "state": {
+          "branch": null,
+          "revision": "e1577acf2b6e90086d01a6d5e2b8efdaae033568",
+          "version": "2.3.0"
+        }
+      },
+      {
+        "package": "StdLibX",
+        "repositoryURL": "https://github.com/SwiftStars/StdLibX.git",
+        "state": {
+          "branch": "master",
+          "revision": "2c123524d598b1a9d2b790c29e644776b3e2e1ac",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "eb51f949cdd0c9d88abba9ce79d37eb7ea1231d0",
+          "version": "0.2.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
