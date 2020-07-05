@@ -124,6 +124,7 @@
 		766AC8EA24AFDBDE00A13757 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		766B416624ABE6CD00D40106 /* CheckFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckFile.swift; sourceTree = "<group>"; };
 		766B416824ABEA5700D40106 /* Check.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Check.swift; sourceTree = "<group>"; };
+		76DDE2F924B11C7200F24D5E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		"Files::Files::Product" /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Files.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_13 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Volumes/Old HD/sprout/.build/checkouts/Files/Package.swift"; sourceTree = "<group>"; };
 		OBJ_14 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
@@ -243,7 +244,6 @@
 			isa = PBXGroup;
 			children = (
 				762A2ADC24A93B12002D0F83 /* Root.swift */,
-				762A2AE824A94880002D0F83 /* main.swift */,
 				762A2AE624A94556002D0F83 /* Everything.swift */,
 				766B416624ABE6CD00D40106 /* CheckFile.swift */,
 				766B416824ABEA5700D40106 /* Check.swift */,
@@ -365,6 +365,7 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
+				76DDE2F924B11C7200F24D5E /* .swiftlint.yml */,
 				766AC8EA24AFDBDE00A13757 /* README.md */,
 				762A2AE224A93D3D002D0F83 /* Examples */,
 				OBJ_6 /* Package.swift */,
@@ -467,6 +468,7 @@
 		OBJ_8 /* sprout */ = {
 			isa = PBXGroup;
 			children = (
+				762A2AE824A94880002D0F83 /* main.swift */,
 				76C93B8C24AE767400A13357 /* Base */,
 			);
 			name = sprout;

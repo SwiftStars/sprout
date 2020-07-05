@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StdLibX
 
 protocol SPRTCheckFile: SPRTVerbose {
     
@@ -17,7 +18,15 @@ extension SPRTCheckFile {
             var sproutFile = SproutFileBuilder()
             var inside = "nil"
             
-            SproutFileArray.forEach { (line, index) in
+            SproutFileArray.forEach { (OGLINE, index) in
+                var line = OGLINE
+                repeatUntil { (_, _) -> (Bool, Never?) in
+                    if line.hasPrefix("\t") || line.hasPrefix(" ") {
+                        line.removeFirst(1)
+                        return (true, nil)
+                    }
+                    return (false, nil)
+                }
                 var insideInside = "nil"
                 if inside == "nil" {
                     if line.hasPrefix("#") || line.isEmpty || line == "" { printV("(\(index + 1)) Empty/Comment Line, ignoring..."); return }
