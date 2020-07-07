@@ -1,0 +1,18 @@
+#!/usr/local/bin/sprout check --location
+
+% projectname: Sprout
+% cliname: sprout
+% builtcli: .build/release/sprout
+% giturl: https://github.com/SwiftStars/sprout.git
+
+% build {
+
+    swift build -c release
+
+% }
+
+% install {
+
+    install->bin .build/release/sprout
+
+}

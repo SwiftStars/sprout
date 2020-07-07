@@ -1,5 +1,9 @@
 included:
-- Sources
+  - Sources
 
-excluded:
-- .build
+disabled_rules:
+  - unused_setter_value
+  - cyclomatic_complexity
+  - identifier_name
+  - line_length
+  - function_body_length

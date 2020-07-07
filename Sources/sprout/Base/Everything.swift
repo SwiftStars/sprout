@@ -6,17 +6,16 @@
 import Foundation
 
 protocol SPRTVerbose {
-    
+
     var verbose: Bool { get set }
-    
+
 }
 
 extension SPRTVerbose {
     func printV(_ message: String, _ normal: String? = nil) {
         if verbose {
             print(message)
-        }
-        else if normal != nil {
+        } else if normal != nil {
             print(normal!)
         }
     }
@@ -41,4 +40,11 @@ extension String {
         }
         return stringArray
     }
+}
+
+/// Print the full description of this object.
+protocol FormatedObjectStringConvertable {
+
+    var formatedDescription: String { get }
+
 }

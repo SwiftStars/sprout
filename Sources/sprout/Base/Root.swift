@@ -6,7 +6,7 @@
 import ArgumentParser
 
 struct SproutRoot: ParsableCommand {
-    
+
     static var configuration: CommandConfiguration = .init(
         commandName: "sprout",
         abstract: "A simple CLI installer with little setup.",
@@ -14,5 +14,5 @@ struct SproutRoot: ParsableCommand {
         subcommands: [SproutInstall.self, SproutCheck.self],
         defaultSubcommand: SproutInstall.self
     )
-    
+
 }

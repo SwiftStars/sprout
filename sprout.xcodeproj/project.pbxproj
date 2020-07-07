@@ -124,6 +124,7 @@
 		766AC8EA24AFDBDE00A13757 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		766B416624ABE6CD00D40106 /* CheckFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckFile.swift; sourceTree = "<group>"; };
 		766B416824ABEA5700D40106 /* Check.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Check.swift; sourceTree = "<group>"; };
+		768877FB24B3D789004A4C93 /* SproutFile */ = {isa = PBXFileReference; lastKnownFileType = text; path = SproutFile; sourceTree = "<group>"; };
 		76DDE2F924B11C7200F24D5E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		"Files::Files::Product" /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Files.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_13 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Volumes/Old HD/sprout/.build/checkouts/Files/Package.swift"; sourceTree = "<group>"; };
@@ -366,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				76DDE2F924B11C7200F24D5E /* .swiftlint.yml */,
+				768877FB24B3D789004A4C93 /* SproutFile */,
 				766AC8EA24AFDBDE00A13757 /* README.md */,
 				762A2AE224A93D3D002D0F83 /* Examples */,
 				OBJ_6 /* Package.swift */,
@@ -618,6 +620,7 @@
 			buildPhases = (
 				OBJ_177 /* Sources */,
 				OBJ_179 /* Frameworks */,
+				764B1F7A24B510B700CDC476 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -703,6 +706,26 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		764B1F7A24B510B700CDC476 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftlint\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		OBJ_121 /* Sources */ = {
