@@ -6,6 +6,7 @@
 import Foundation
 import ArgumentParser
 import Files
+import ShellOut
 
 struct SproutUninstall: ParsableCommand, SPRTCheckFile {
 
@@ -17,8 +18,8 @@ struct SproutUninstall: ParsableCommand, SPRTCheckFile {
     @Argument(help: "The name of the package to uninstall.")
     var name: String
 
-    @Argument(help: "Print extra output.")
-    var verbose: Bool
+    @Flag(help: "Print extra output.")
+    var verbose: Bool = false
 
     func run() throws {
         printV("Finding package to uninstall.")
@@ -98,11 +99,18 @@ struct SproutUninstall: ParsableCommand, SPRTCheckFile {
                 do {
                     let file = try File(path: location)
                     try file.delete()
-                } catch let error as LocationError {
-                    print("Unable to find or delete a symlink cli installed.")
-                    print("The cli was installed to \"~/.sprout/bin/\(cliName)\",")
-                    print("and symlinked to \"\(location)\".")
-                    print(error.description)
+                } catch let filesError as LocationError {
+                    printV("Unable to find or delete a symlink cli installed.")
+                    printV("Trying again with rm.")
+                    do {
+                        try shellOut(to: "rm \"\(location)\"")
+                    } catch let shellError as ShellOutError {
+                        print("Unable to find or delete a symlink cli installed.")
+                        print("The cli was installed to \"~/.sprout/bin/\(cliName)\",")
+                        print("and symlinked to \"\(location)\".")
+                        print(filesError.description)
+                        print(shellError.description)
+                    }
                 }
             }
         }
