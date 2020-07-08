@@ -4,6 +4,7 @@
 //
 
 import ArgumentParser
+import StdLibX
 
 struct SproutRoot: ParsableCommand {
 
@@ -11,8 +12,24 @@ struct SproutRoot: ParsableCommand {
         commandName: "sprout",
         abstract: "A simple CLI installer with little setup.",
         version: "Sprout v0.0.0 alpha 1",
-        subcommands: [SproutInstall.self, SproutCheck.self, SproutDetail.self],
+        subcommands: [SproutInstall.self, SproutCheck.self, SproutDetail.self, SproutUninstall.self, SproutList.self],
         defaultSubcommand: SproutInstall.self
     )
+
+}
+
+struct SproutList: ParsableCommand {
+
+    static var configuration: CommandConfiguration = .init(
+        commandName: "list",
+        abstract: "List all installed packages."
+    )
+
+    @Flag(name: .customShort("1"), help: "Print one package per line. (Useful for automated scripts)")
+    var onePerLine: Bool = false
+
+    func run() throws {
+        system("ls \(onePerLine ? "-1 " : "")~/.sprout/repos")
+    }
 
 }
