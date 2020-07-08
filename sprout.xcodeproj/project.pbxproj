@@ -14,6 +14,9 @@
 		762A2AEB24AA8038002D0F83 /* SproutFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762A2AEA24AA8038002D0F83 /* SproutFile.swift */; };
 		766B416724ABE6CD00D40106 /* CheckFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766B416624ABE6CD00D40106 /* CheckFile.swift */; };
 		766B416924ABEA5700D40106 /* Check.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766B416824ABEA5700D40106 /* Check.swift */; };
+		76A8935324B65FD5009B0805 /* TrueURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A8935224B65FD5009B0805 /* TrueURL.swift */; };
+		76A8935724B66928009B0805 /* Uninstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A8935624B66928009B0805 /* Uninstall.swift */; };
+		76D4FB5924B51D1D00C1D0DC /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764215AE24B51CE20099AB32 /* Detail.swift */; };
 		OBJ_100 /* ArgumentSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* ArgumentSet.swift */; };
 		OBJ_101 /* ArgumentSetSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* ArgumentSetSequence.swift */; };
 		OBJ_102 /* CommandParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* CommandParser.swift */; };
@@ -121,10 +124,13 @@
 		762A2AE624A94556002D0F83 /* Everything.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Everything.swift; sourceTree = "<group>"; };
 		762A2AE824A94880002D0F83 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		762A2AEA24AA8038002D0F83 /* SproutFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutFile.swift; sourceTree = "<group>"; };
+		764215AE24B51CE20099AB32 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		766AC8EA24AFDBDE00A13757 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		766B416624ABE6CD00D40106 /* CheckFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckFile.swift; sourceTree = "<group>"; };
 		766B416824ABEA5700D40106 /* Check.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Check.swift; sourceTree = "<group>"; };
 		768877FB24B3D789004A4C93 /* SproutFile */ = {isa = PBXFileReference; lastKnownFileType = text; path = SproutFile; sourceTree = "<group>"; };
+		76A8935224B65FD5009B0805 /* TrueURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrueURL.swift; sourceTree = "<group>"; tabWidth = 4; wrapsLines = 1; };
+		76A8935624B66928009B0805 /* Uninstall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uninstall.swift; sourceTree = "<group>"; };
 		76DDE2F924B11C7200F24D5E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		"Files::Files::Product" /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Files.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_13 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Volumes/Old HD/sprout/.build/checkouts/Files/Package.swift"; sourceTree = "<group>"; };
@@ -239,19 +245,6 @@
 				762A2AE324A93D64002D0F83 /* Swift-SproutFile */,
 			);
 			path = Examples;
-			sourceTree = "<group>";
-		};
-		76C93B8C24AE767400A13357 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				762A2ADC24A93B12002D0F83 /* Root.swift */,
-				762A2AE624A94556002D0F83 /* Everything.swift */,
-				766B416624ABE6CD00D40106 /* CheckFile.swift */,
-				766B416824ABEA5700D40106 /* Check.swift */,
-				762A2ADF24A93D23002D0F83 /* Install.swift */,
-				762A2AEA24AA8038002D0F83 /* SproutFile.swift */,
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 		OBJ_11 /* Dependencies */ = {
@@ -470,8 +463,16 @@
 		OBJ_8 /* sprout */ = {
 			isa = PBXGroup;
 			children = (
+				762A2ADC24A93B12002D0F83 /* Root.swift */,
+				762A2AE624A94556002D0F83 /* Everything.swift */,
+				766B416624ABE6CD00D40106 /* CheckFile.swift */,
+				76A8935624B66928009B0805 /* Uninstall.swift */,
+				766B416824ABEA5700D40106 /* Check.swift */,
+				762A2ADF24A93D23002D0F83 /* Install.swift */,
+				76A8935224B65FD5009B0805 /* TrueURL.swift */,
+				762A2AEA24AA8038002D0F83 /* SproutFile.swift */,
+				764215AE24B51CE20099AB32 /* Detail.swift */,
 				762A2AE824A94880002D0F83 /* main.swift */,
-				76C93B8C24AE767400A13357 /* Base */,
 			);
 			name = sprout;
 			path = Sources/sprout;
@@ -795,10 +796,13 @@
 			files = (
 				766B416924ABEA5700D40106 /* Check.swift in Sources */,
 				762A2AE724A94556002D0F83 /* Everything.swift in Sources */,
+				76D4FB5924B51D1D00C1D0DC /* Detail.swift in Sources */,
 				762A2ADD24A93B12002D0F83 /* Root.swift in Sources */,
 				762A2AE924A94880002D0F83 /* main.swift in Sources */,
 				762A2AE024A93D23002D0F83 /* Install.swift in Sources */,
+				76A8935724B66928009B0805 /* Uninstall.swift in Sources */,
 				766B416724ABE6CD00D40106 /* CheckFile.swift in Sources */,
+				76A8935324B65FD5009B0805 /* TrueURL.swift in Sources */,
 				762A2AEB24AA8038002D0F83 /* SproutFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

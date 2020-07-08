@@ -21,28 +21,31 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
     @Flag(help: "Print extra output.")
     var verbose: Bool = false
 
+    @Flag(help: "Ignore prompts throughout installation.")
+    var skipPrompts: Bool = false
+
     func run() throws {
 
         // MARK: Validate URL
 
         printV("Validating URL, \(url), to make sure it is a valid GitHub repo reference.")
-//        printV("First checking to see if it is a complete URL on it's own (That is not currently supported).")
-//        if URL(string: url) != nil {
-//            print("The URL provided, \(url), does not properly represent a GitHub repo.")
-//            print("Try using a URL like SwiftStars/sprout, which would be automatically converted to \"https://github.com/SwiftStars/sprout.git\".")
-//            Foundation.exit(1)
-//        }
+        printV("First checking to see if it is a complete URL on it's own.")
+        var useSproutURL = false
+        if TrueURL(nil: url) != nil {
+            useSproutURL = true
+        }
         printV("Now checking to see if the generated url is valid.")
-        if URL(string: "https://github.com/\(url).git") == nil {
-            print("The URL provided, \(url), does not properly represent a GitHub repo.")
+        if TrueURL(nil: "https://github.com/\(url).git") == nil && !useSproutURL {
+            print("The URL provided, \(url), does not provide a Git(Hub) repo.")
             print("Try using a url like SwiftStars/sprout, which would be automatically converted to \"https://github.com/SwiftStars/sprout.git\".")
+            print("Or link to the SproutFile to use.")
             Foundation.exit(1)
         }
         printV("URL passed validation.")
 
         // MARK: Obtain SproutFile
 
-        let SproutFileURL = URL(string: "https://raw.githubusercontent.com/\(url)/master/SproutFile")!
+        let SproutFileURL = !useSproutURL ? URL(string: "https://raw.githubusercontent.com/\(url)/master/SproutFile")! : URL(string: url)!
         printV(
             "Obtaining SproutFile at \(SproutFileURL)...",
             "Getting package information..."
@@ -81,16 +84,16 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             "Finished decoding SproutFile.",
             "Obtained package information for \(sproutFile.packageName)."
         )
-        var gitHubURL = URL(string: "https://github.com/\(url).git")!
+        var gitHubURL = !useSproutURL ? URL(string: "https://github.com/\(url).git")! : sproutFile.packageGitURL
         printV("Second URL check...")
-        if sproutFile.packageGitURL != gitHubURL {
+        if sproutFile.packageGitURL != gitHubURL && !skipPrompts {
             print("The URL used to obtain the the SproutFile and the url inside the SproutFile do not match.")
             let aws = prompt("Would you like to use your URL or the one in the SproutFile: (y/t/CANCEL) ")
             if aws == ("t" || "their" || "theirs") {
                 gitHubURL = sproutFile.packageGitURL
             } else if aws != ("y" || "your" || "yours") {
                 print("Stoping install...")
-                Foundation.exit(-1)
+                Foundation.exit(1)
             }
         }
         var newUser = false
@@ -146,7 +149,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             } catch let pullError as ShellOutError {
                 print("Unable to update package.")
                 print("You might already be on the latest version of \(sproutFile.packageName).")
-                if prompt("Would you like to continue installation anyway: (y/CANCEL) ") != ("y" || "yes" || "c" || "continue") {
+                if !skipPrompts && prompt("Would you like to continue installation anyway: (y/CANCEL) ") != ("y" || "yes" || "c" || "continue") {
                     print(pullError.description)
                     Foundation.exit(1)
                 }
@@ -160,7 +163,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             print("Build (among others) scripts are provided by the owners of the package, not sprout.")
             print("These scripts can run any command, without your permission.")
         }
-        if prompt("Would you like to continue, build and install \(sproutFile.packageName): (y/CANCEL) ") != ("y" || "yes") {
+        if !skipPrompts && prompt("Would you like to continue, build and install \(sproutFile.packageName): (y/CANCEL) ") != ("y" || "yes") {
             print("Canceling install...")
             Foundation.exit(1)
         }
@@ -198,7 +201,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                     Foundation.exit(1)
                 }
             case .installBin(let find, let install):
-                var cli: File?
+                var cli: File
                 do {
                     printV("Obtaining built CLI...")
                     cli = try repoPath.subfolder(at: sproutFile.packageName).file(at: find)
@@ -208,11 +211,11 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                     print(error.description)
                     Foundation.exit(1)
                 }
-                _ = try? binPath.file(at: cli!.name).delete()
+                _ = try? binPath.file(at: cli.name).delete()
                 let sproutCLI: File
                 do {
                     printV("Copying built CLI to Sprout bin.")
-                    sproutCLI = try cli!.copy(to: binPath)
+                    sproutCLI = try cli.copy(to: binPath)
                     printV("Copied/Pasted CLI.")
                 } catch let error as LocationError {
                     print("Unable to copy built cli to Sprout bin.")
@@ -254,7 +257,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
     }
 }
 
-public struct Container<Item: Equatable> {
+public struct ComparisionContainer<Item: Equatable> {
     public let items: [Item]
     public let rules: Rule
 
@@ -264,28 +267,35 @@ public struct Container<Item: Equatable> {
     }
 }
 
+extension ComparisionContainer {
+    init(_ items: Item..., rules: Rule) {
+        self.items = items
+        self.rules = rules
+    }
+}
+
 extension Equatable {
-    static public func || (lhs: Self, rhs: Self) -> Container<Self> {
+    static public func || (lhs: Self, rhs: Self) -> ComparisionContainer<Self> {
         return .init(items: [lhs, rhs], rules: .OR)
     }
 
-    static public func || (lhs: Container<Self>, rhs: Self) -> Container<Self> {
+    static public func || (lhs: ComparisionContainer<Self>, rhs: Self) -> ComparisionContainer<Self> {
         var new = lhs.items
         new.append(rhs)
         return .init(items: new, rules: .OR)
     }
 
-    static public func == (lhs: Self, rhs: Self) -> Container<Self> {
+    static public func == (lhs: Self, rhs: Self) -> ComparisionContainer<Self> {
         return .init(items: [lhs, rhs], rules: .AND)
     }
 
-    static public func == (lhs: Container<Self>, rhs: Self) -> Container<Self> {
+    static public func == (lhs: ComparisionContainer<Self>, rhs: Self) -> ComparisionContainer<Self> {
         var new = lhs.items
         new.append(rhs)
         return .init(items: new, rules: .AND)
     }
 
-    static public func == (lhs: Self, rhs: Container<Self>) -> Bool {
+    static public func == (lhs: Self, rhs: ComparisionContainer<Self>) -> Bool {
         if rhs.rules == .OR {
             var aws = false
             rhs.items.forEach { (item) in
@@ -308,7 +318,7 @@ extension Equatable {
         }
     }
 
-    static public func != (lhs: Self, rhs: Container<Self>) -> Bool {
+    static public func != (lhs: Self, rhs: ComparisionContainer<Self>) -> Bool {
         return !(lhs == rhs)
     }
 }

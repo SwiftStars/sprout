@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Sprout",
     products: [
-        .executable(name: "sprout", targets: ["sprout"])
+        .executable(name: "sprout", targets: ["sprout"]),
     ],
     dependencies: [
         .package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0"),

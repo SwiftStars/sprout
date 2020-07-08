@@ -1,8 +1,6 @@
 //
-//  Check.swift
-//  sprout
-//
-//  Created by Benjamin Sova on 6/30/20.
+// Sprout Source Code
+// Copyright © Ben Sova (GNU GPLv3)
 //
 
 import Foundation

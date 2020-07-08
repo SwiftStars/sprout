@@ -24,7 +24,7 @@ struct SproutFile {
 }
 
 //extension SproutFile: FormatedObjectStringConvertable {
-    
+
 //    var formatedDescription: String {
 //        var string = """
 //        SproutFile (
@@ -43,7 +43,7 @@ struct SproutFile {
 //        }
 //        return string
 //    }
-    
+
 //}
 
 struct SproutFileBuilder {
@@ -91,13 +91,4 @@ enum SproutFileAction {
     case shell(String)
     case installBin(String, String)
     case installApp(String, String)
-    
-//    var formatedDescription: String {
-//        switch self {
-//        case .shell(let str):
-//            return "SproutFileAction.shell(\"\(str)\")"
-//        case .installBin(let str, let str2):
-//            return "SproutFileAction.installBin(\"\(str)\", \"\(str2)\")"
-//    }
-    
 }

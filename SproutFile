@@ -1,9 +1,10 @@
 #!/usr/local/bin/sprout check --location
 
 % projectname: Sprout
-% cliname: sprout
 % builtcli: .build/release/sprout
 % giturl: https://github.com/SwiftStars/sprout.git
+% snapto: branch~master
+# % snapto: latest
 
 % build {
 
