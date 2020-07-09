@@ -30,17 +30,21 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
 
         printV("Validating URL, \(url), to make sure it is a valid GitHub repo reference.")
         printV("First checking to see if it is a complete URL on it's own.")
-        var useSproutURL = false
-        if TrueURL(nil: url) != nil {
-            useSproutURL = true
+        var useSproutURL = true
+        var alreadyCalledSlash = false
+        if url.allSatisfy({ (char) -> Bool in
+            if char == "/" && !alreadyCalledSlash {
+                alreadyCalledSlash = true
+                return true
+            } else if char == "/" {
+                return false
+            } else {
+                return true
+            }
+        }) {
+            useSproutURL = false
         }
         printV("Now checking to see if the generated url is valid.")
-        if TrueURL(nil: "https://github.com/\(url).git") == nil && !useSproutURL {
-            print("The URL provided, \(url), does not provide a Git(Hub) repo.")
-            print("Try using a url like SwiftStars/sprout, which would be automatically converted to \"https://github.com/SwiftStars/sprout.git\".")
-            print("Or link to the SproutFile to use.")
-            Foundation.exit(1)
-        }
         printV("URL passed validation.")
 
         // MARK: Obtain SproutFile
@@ -322,3 +326,18 @@ extension Equatable {
         return !(lhs == rhs)
     }
 }
+
+//var array = ["v1.0", "v2.4-beta2", "v2.4", "v3.1", "v1.1", "v2.4-beta1"].sorted { (one, two) -> Bool in
+//    if one.hasPrefix(two) {
+//        return false
+//    }
+//    if two.hasPrefix(one) {
+//        return true
+//    }
+//    if [one, two].sorted()[0] == one {
+//        return false
+//    }
+//    else {
+//        return true
+//    }
+//}

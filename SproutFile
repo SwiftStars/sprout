@@ -2,7 +2,7 @@
 
 % projectname: Sprout
 % builtcli: .build/release/sprout
-% giturl: https://github.com/SwiftStars/sprout.git
+% giturl: ssh://git@github.com/SwiftStars/sprout.git
 % snapto: branch~master
 # % snapto: latest
 
