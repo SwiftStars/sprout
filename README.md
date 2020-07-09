@@ -96,4 +96,7 @@ Simply run:
 ```shell
 mint install SwiftStars/sprout
 ```
-Alternatives coming... (Sprout is not currently eligible with Homebrew)
+```shell
+/bin/bash -c $(curl -fsSL https://raw.githubusercontent.com/user/repo/master/install.sh)
+```
+Alternatives coming... (Sprout is not currently eligible for Homebrew)

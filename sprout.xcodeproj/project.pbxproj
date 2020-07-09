@@ -125,6 +125,7 @@
 		762A2AE824A94880002D0F83 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		762A2AEA24AA8038002D0F83 /* SproutFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutFile.swift; sourceTree = "<group>"; };
 		764215AE24B51CE20099AB32 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		76591F7924B7CA8B00B0360B /* install.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = install.sh; sourceTree = "<group>"; };
 		766AC8EA24AFDBDE00A13757 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		766B416624ABE6CD00D40106 /* CheckFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckFile.swift; sourceTree = "<group>"; };
 		766B416824ABEA5700D40106 /* Check.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Check.swift; sourceTree = "<group>"; };
@@ -359,6 +360,7 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
+				76591F7924B7CA8B00B0360B /* install.sh */,
 				76DDE2F924B11C7200F24D5E /* .swiftlint.yml */,
 				768877FB24B3D789004A4C93 /* SproutFile */,
 				766AC8EA24AFDBDE00A13757 /* README.md */,
