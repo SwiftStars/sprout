@@ -1,8 +1,8 @@
 #!/usr/local/bin/sprout check --location
 
 % projectname: Sprout
-% builtcli: .build/release/sprout
-% giturl: ssh://git@github.com/SwiftStars/sprout.git
+# % builtcli: .build/release/sprout
+% giturl: https://github.com/SwiftStars/sprout.git
 % snapto: branch~master
 # % snapto: latest
 
