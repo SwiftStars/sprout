@@ -93,9 +93,11 @@ sprout <subcommand>/<url>
 
 # Installation
 Simply run:
+For [Mint](https://github.com/yonaskolb/Mint)
 ```shell
 mint install SwiftStars/sprout
 ```
+Custom install script:
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/SwiftStars/Sprout/master/install.sh)"
 ```
