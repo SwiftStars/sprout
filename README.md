@@ -74,7 +74,7 @@ SproutFile passed checks.
 - `uninstall`, `preinstall`, `postinstall` are coming soon.
 - `install->bin` and `install->app` are both custom commands.
 - Commands are run in `sh`. If you want them to run in a different shell, write `<shell> -c "<command>"`
-- Pushing your own output is coming. (This would be text or command output).
+- To push custom output put `echo-> <message>` for just a message or `push-> <command>` for a command.
 
 ## Contributing
 Feel free to contribute! I don't have a set vision for Sprout yet, so anything is welcome.

@@ -88,6 +88,8 @@ struct SproutFileBuilder {
 }
 
 enum SproutFileAction {
+    case echo(String)
+    case push(String)
     case shell(String)
     case installBin(String, String)
     case installApp(String, String)

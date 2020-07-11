@@ -131,6 +131,18 @@ extension SPRTCheckFile {
             print("(\(index + 1)) Build actions cannot have install actions.")
             Foundation.exit(1)
         }
+        if line.hasPrefix("push->") {
+            var without = line
+            without.removeFirst(7)
+            printV("(\(index + 1)) Read a shell command with push output. (\(without))")
+            return (.push(without), false)
+        }
+        if line.hasPrefix("echo->") {
+            var without = line
+            without.removeFirst(7)
+            printV("(\(index + 1)) Read an echo command. (\(without))")
+            return (.echo(without), false)
+        }
         printV("(\(index + 1)) Read a shell action. (\(line))")
         return (.shell(line), false)
     }
@@ -161,9 +173,9 @@ extension SPRTCheckFile {
                 args[0].split(separator: "/").forEach { (path) in
                     name = path
                 }
-                return (.installBin(args[0], "/usr/local/bin/\(name)"), true)
+                return (.installBin(args[0], "/usr/local/bin/\(name)"), false)
             } else {
-                return (.installBin(args[0], "/usr/local/bin/\(args[1])"), true)
+                return (.installBin(args[0], "/usr/local/bin/\(args[1])"), false)
             }
         }
         if line.hasPrefix("install->app") {
@@ -183,10 +195,22 @@ extension SPRTCheckFile {
                 args[0].split(separator: "/").forEach { (path) in
                     name = path
                 }
-                return (.installApp(args[0], "/Applications/\(name)"), true)
+                return (.installApp(args[0], "/Applications/\(name)"), false)
             } else {
-                return (.installApp(args[0], "/Applications/\(args[1])"), true)
+                return (.installApp(args[0], "/Applications/\(args[1])"), false)
             }
+        }
+        if line.hasPrefix("push->") {
+            var without = line
+            without.removeFirst(7)
+            printV("(\(index + 1)) Read a shell command with push output. (\(without))")
+            return (.push(without), false)
+        }
+        if line.hasPrefix("echo->") {
+            var without = line
+            without.removeFirst(7)
+            printV("(\(index + 1)) Read an echo command. (\(without))")
+            return (.echo(without), false)
         }
         printV("(\(index + 1)) Read a shell action. (\(line))")
         return (.shell(line), false)

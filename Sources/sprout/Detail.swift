@@ -83,6 +83,10 @@ struct SproutDetail: ParsableCommand, SPRTCheckFile {
                     print("app:  from: \(from)")
                     print("      to:   \(to)")
                     print("INSTALL ACTIONS SHOULD NOT BE IN BUILD ACTIONS")
+                case .echo(let output):
+                    print("echo:       \(output)")
+                case .push(let cmd):
+                    print("push shell: \(cmd)")
                 }
             }
             print("\nInstall actions:")
@@ -96,6 +100,10 @@ struct SproutDetail: ParsableCommand, SPRTCheckFile {
                 case .installApp(let from, let to):
                     print("app:  from: \(from)")
                     print("      to:   \(to)")
+                case .echo(let output):
+                    print("echo:       \(output)")
+                case .push(let cmd):
+                    print("push shell: \(cmd)")
                 }
             }
         }

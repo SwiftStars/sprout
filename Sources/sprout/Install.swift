@@ -171,30 +171,56 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             print("Canceling install...")
             Foundation.exit(1)
         }
+        var allowCustomOutput: Bool?
         print("Building package...")
         try sproutFile.buildActions.forEach { (action) in
-            var command = ""
             switch action {
             case .shell(let cmd):
-                command = cmd
+                do {
+                    try shellOut(to: cmd, at: repoPath.subfolder(at: sproutFile.packageName).path)
+                } catch let error as ShellOutError {
+                    print("A command part of the build actions for \(sproutFile.packageName) failed.")
+                    print(error.description)
+                    Foundation.exit(1)
+                }
             case .installBin:
                 print("Cannot install a file during a build process.")
                 Foundation.exit(1)
             case .installApp:
                 print("Cannot install an app during an install process.")
-            }
-            do {
-                try shellOut(to: command, at: repoPath.subfolder(at: sproutFile.packageName).path)
-            } catch let error as ShellOutError {
-                print("A command part of the build actions for \(sproutFile.packageName) failed.")
-                print(error.description)
                 Foundation.exit(1)
+            case .echo(let output):
+                if allowCustomOutput == nil {
+                    if prompt("\(sproutFile.packageName) would like to print custom output: (y/IGNORE) ") == ("y" || "yes") {
+                        allowCustomOutput = true
+                        print(output)
+                    } else {
+                        allowCustomOutput = false
+                    }
+                } else if allowCustomOutput == true {
+                    print(output)
+                }
+            case .push(let cmd):
+                if allowCustomOutput == nil {
+                    if prompt("\(sproutFile.packageName) would like to print custom output: (y/IGNORE) ") == ("y" || "yes") {
+                        allowCustomOutput = true
+                        let exitCode = system(cmd)
+                        if exitCode != 0 {
+                            print("A command part of the build actions for \(sproutFile.packageName) failed.")
+                            print("Exit code: \(exitCode)")
+                            Foundation.exit(1)
+                        }
+                    } else {
+                        allowCustomOutput = false
+                    }
+                } else if allowCustomOutput == true {
+                    system(cmd)
+                }
             }
         }
         print("Successfully built \(sproutFile.packageName)")
         print("Installing package...")
         try sproutFile.installActions.forEach({ (action) in
-//            var command = ""
             switch action {
             case .shell(let cmd):
                 do {
@@ -254,6 +280,33 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                 } catch let error as ShellOutError {
                     print("Unable to copy app to Applications folder")
                     print(error.description)
+                }
+            case .echo(let output):
+                if allowCustomOutput == nil {
+                    if prompt("\(sproutFile.packageName) would like to print custom output: (y/IGNORE) ") == ("y" || "yes") {
+                        allowCustomOutput = true
+                        print(output)
+                    } else {
+                        allowCustomOutput = false
+                    }
+                } else if allowCustomOutput == true {
+                    print(output)
+                }
+            case .push(let cmd):
+                if allowCustomOutput == nil {
+                    if prompt("\(sproutFile.packageName) would like to print custom output: (y/IGNORE) ") == ("y" || "yes") {
+                        allowCustomOutput = true
+                        let exitCode = system(cmd)
+                        if exitCode != 0 {
+                            print("A command part of the build actions for \(sproutFile.packageName) failed.")
+                            print("Exit code: \(exitCode)")
+                            Foundation.exit(1)
+                        }
+                    } else {
+                        allowCustomOutput = false
+                    }
+                } else if allowCustomOutput == true {
+                    system(cmd)
                 }
             }
         })
