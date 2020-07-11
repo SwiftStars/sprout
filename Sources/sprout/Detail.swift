@@ -20,12 +20,13 @@ struct SproutDetail: ParsableCommand, SPRTCheckFile {
     @Flag(help: "List build and install actions.")
     var listActions: Bool = false
 
+    @Flag(help: "Print extra output (during decoding).")
     var verbose: Bool = false
 
     func run() throws {
         let repoPath: Folder
         do {
-            repoPath = try Folder(path: "./sprout/repos")
+            repoPath = try Folder(path: "~/.sprout/repos")
         } catch {
             print("It looks like you haven't used sprout to install any packages before.")
             print("Please install the package before trying to check details.")
@@ -34,7 +35,7 @@ struct SproutDetail: ParsableCommand, SPRTCheckFile {
         }
         let packagePath: Folder
         do {
-            packagePath = try repoPath.subfolder(named: "name")
+            packagePath = try repoPath.subfolder(named: name)
         } catch {
             print("It looks like you haven't installed this package yet.")
             print("Please install the package before trying to check details.")
