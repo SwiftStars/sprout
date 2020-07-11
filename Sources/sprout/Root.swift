@@ -12,7 +12,7 @@ struct SproutRoot: ParsableCommand {
         commandName: "sprout",
         abstract: "A simple CLI installer with little setup.",
         version: "Sprout v0.0.0 alpha 1",
-        subcommands: [SproutInstall.self, SproutCheck.self, SproutDetail.self, SproutUninstall.self, SproutList.self],
+        subcommands: [SproutInstall.self, SproutCheck.self, SproutDetail.self, SproutUninstall.self, SproutList.self, SproutNew.self],
         defaultSubcommand: SproutInstall.self
     )
 
