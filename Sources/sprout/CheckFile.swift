@@ -61,6 +61,7 @@ extension SPRTCheckFile {
                                 if word == "builtcli:" { insideInside = "builtcli" }
                                 if word == "giturl:" { insideInside = "giturl" }
                                 if word == "website:" { insideInside = "website" }
+                                if word == "onetime" { sproutFile.runOnly = true; return }
                                 if word == "build" { insideInside = "build" }
                                 if word == "install" { insideInside = "install" }
                             } else if insideInside == "projectname" {

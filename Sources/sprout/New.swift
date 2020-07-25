@@ -91,9 +91,9 @@ struct SproutNew: ParsableCommand {
         print("Finished creating SproutFile!")
         gPrint("Now make sure to fill in the blanks (like build/install commands)")
         gPrint("And run \"sprout check\" to make sure everything is correct.")
-        gPrint("You might even try \"sprout file://<drag-in-sproutfile>\" to make sure Sprout installs your package correctly.")
+        gPrint("You should also try \"sprout file://<drag-in-sproutfile>\" to make sure Sprout installs your package correctly.")
     }
-    
+
     func gPrint(_ str: String) {
         if guided {
             print(str)

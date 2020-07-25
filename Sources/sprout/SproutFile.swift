@@ -14,6 +14,8 @@ struct SproutFile {
     let packageWebpage: URL?
     let packageCLIName: String?
 
+    let runOnly: Bool
+
     let buildActions: [SproutFileAction]
     let installActions: [SproutFileAction]
 
@@ -54,6 +56,8 @@ struct SproutFileBuilder {
     var packageWebpage: URL?
     var packageCLIName: String?
 
+    var runOnly: Bool?
+
     var buildActions: [SproutFileAction]?
     var installActions: [SproutFileAction]?
 
@@ -72,6 +76,7 @@ struct SproutFileBuilder {
             packageGitURL: packageGitURL!,
             packageWebpage: packageWebpage,
             packageCLIName: packageCLIName,
+            runOnly: runOnly ?? false,
             buildActions: buildActions!,
             installActions: installActions!
         )

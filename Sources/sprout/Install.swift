@@ -310,6 +310,17 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                 }
             }
         })
+        if sproutFile.runOnly {
+            print("Cleaning up installation...")
+            do {
+                _ = try repoPath.subfolder(at: sproutFile.packageName).delete()
+            } catch let error as LocationError {
+                print("Unable to clean up installation (for an install once package).")
+                print(error.description)
+                Foundation.exit(1)
+            }
+            print("Finished clean up.")
+        }
         print("Successfully installed \(sproutFile.packageName)!")
     }
 }
