@@ -162,6 +162,18 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                 print(cloneError.description)
             }
         }
+        do {
+            let tagList = try shellOut(to: "git tag --list", at: repoPath.path)
+            let tagArray = tagList.split(separator: "\n")
+            if !(tagArray.isEmpty) {
+                let currentTag = VersionGrab(tagArray)
+                do {
+                    try shellOut(to: "git reset \(currentTag) --hard")
+                } catch {
+                    print("Unable to reset to latest tag, continuing with master.")
+                }
+            }
+        } catch {}
         print("Cloned package.")
         if newUser {
             print("Build (among others) scripts are provided by the owners of the package, not sprout.")
@@ -325,7 +337,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
     }
 }
 
-public struct ComparisionContainer<Item: Equatable> {
+public struct ComparisonContainer<Item: Equatable> {
     public let items: [Item]
     public let rules: Rule
 
@@ -335,7 +347,7 @@ public struct ComparisionContainer<Item: Equatable> {
     }
 }
 
-extension ComparisionContainer {
+extension ComparisonContainer {
     init(_ items: Item..., rules: Rule) {
         self.items = items
         self.rules = rules
@@ -343,27 +355,27 @@ extension ComparisionContainer {
 }
 
 extension Equatable {
-    static public func || (lhs: Self, rhs: Self) -> ComparisionContainer<Self> {
+    static public func || (lhs: Self, rhs: Self) -> ComparisonContainer<Self> {
         return .init(items: [lhs, rhs], rules: .OR)
     }
 
-    static public func || (lhs: ComparisionContainer<Self>, rhs: Self) -> ComparisionContainer<Self> {
+    static public func || (lhs: ComparisonContainer<Self>, rhs: Self) -> ComparisonContainer<Self> {
         var new = lhs.items
         new.append(rhs)
         return .init(items: new, rules: .OR)
     }
 
-    static public func == (lhs: Self, rhs: Self) -> ComparisionContainer<Self> {
+    static public func == (lhs: Self, rhs: Self) -> ComparisonContainer<Self> {
         return .init(items: [lhs, rhs], rules: .AND)
     }
 
-    static public func == (lhs: ComparisionContainer<Self>, rhs: Self) -> ComparisionContainer<Self> {
+    static public func == (lhs: ComparisonContainer<Self>, rhs: Self) -> ComparisonContainer<Self> {
         var new = lhs.items
         new.append(rhs)
         return .init(items: new, rules: .AND)
     }
 
-    static public func == (lhs: Self, rhs: ComparisionContainer<Self>) -> Bool {
+    static public func == (lhs: Self, rhs: ComparisonContainer<Self>) -> Bool {
         if rhs.rules == .OR {
             var aws = false
             rhs.items.forEach { (item) in
@@ -386,7 +398,7 @@ extension Equatable {
         }
     }
 
-    static public func != (lhs: Self, rhs: ComparisionContainer<Self>) -> Bool {
+    static public func != (lhs: Self, rhs: ComparisonContainer<Self>) -> Bool {
         return !(lhs == rhs)
     }
 }
@@ -405,3 +417,24 @@ extension Equatable {
 //        return true
 //    }
 //}
+
+func VersionSort(_ array: [String]) -> [String] {
+    array.sorted { (one, two) -> Bool in
+        if one.hasPrefix(two) {
+            return false
+        }
+        if two.hasPrefix(one) {
+            return true
+        }
+        if [one, two].sorted()[0] == one {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+}
+
+func VersionGrab(_ array: [String]) -> String {
+    VersionSort(array)[0]
+}
