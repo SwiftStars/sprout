@@ -25,29 +25,6 @@ struct SproutFile {
 
 }
 
-//extension SproutFile: FormatedObjectStringConvertable {
-
-//    var formatedDescription: String {
-//        var string = """
-//        SproutFile (
-//            packageName: "\(packageName)",
-//            packageDescription: "\(packageDescription ?? "nil")",
-//            packageGitURL: "\(packageGitURL)",
-//            packageWebpage: "\(packageWebpage?.absoluteString ?? "nil")",
-//            packageCLIName: "\(packageCLIName ?? "nil")",
-//            buildActions: [
-//        """
-//        buildActions.forEach { (action) in
-//            string.append("""
-//
-//
-//            """
-//        }
-//        return string
-//    }
-
-//}
-
 struct SproutFileBuilder {
 
     var packageName: String?
@@ -87,7 +64,6 @@ struct SproutFileBuilder {
         packageDescription = nil
         packageGitURL = nil
         packageWebpage = nil
-        packageCLIName = nil
         buildActions = nil
     }
 }

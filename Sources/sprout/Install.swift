@@ -166,11 +166,12 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             let tagList = try shellOut(to: "git tag --list", at: repoPath.path)
             let tagArray = tagList.split(separator: "\n")
             if !(tagArray.isEmpty) {
-                let currentTag = VersionGrab(tagArray)
-                do {
-                    try shellOut(to: "git reset \(currentTag) --hard")
-                } catch {
-                    print("Unable to reset to latest tag, continuing with master.")
+                if let currentTag = VersionGrab(tagArray) {
+                    do {
+                        try shellOut(to: "git reset \(currentTag) --hard")
+                    } catch {
+                        print("Unable to reset to latest tag, continuing with master.")
+                    }
                 }
             }
         } catch {}
@@ -428,13 +429,25 @@ func VersionSort(_ array: [String]) -> [String] {
         }
         if [one, two].sorted()[0] == one {
             return false
-        }
-        else {
+        } else {
             return true
         }
     }
 }
 
-func VersionGrab(_ array: [String]) -> String {
-    VersionSort(array)[0]
+func VersionGrab(_ array: [String], isIgnored: (String) -> Bool = { !($0.contains("beta") || $0.contains("alpha")) }) -> String? {
+    let filteredArray = array.rmMap { isIgnored($0) ? nil : $0 }
+    return filteredArray.isEmpty ? nil : VersionSort(filteredArray)[0]
+}
+
+extension Sequence {
+    public func rmMap<T>(_ matches: (Element) -> T?) -> [T] {
+        var returnItem = [] as [T]
+        forEach {
+            if let item = matches($0) {
+                returnItem.append(item)
+            }
+        }
+        return returnItem
+    }
 }

@@ -17,6 +17,7 @@
 		76A8935324B65FD5009B0805 /* TrueURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A8935224B65FD5009B0805 /* TrueURL.swift */; };
 		76A8935724B66928009B0805 /* Uninstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A8935624B66928009B0805 /* Uninstall.swift */; };
 		76AE456B24BA6CA000072FF5 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AE456A24BA6CA000072FF5 /* New.swift */; };
+		76D2BC9D24D0D975007CAB5C /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D2BC9C24D0D975007CAB5C /* Tokens.swift */; };
 		76D4FB5924B51D1D00C1D0DC /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764215AE24B51CE20099AB32 /* Detail.swift */; };
 		OBJ_100 /* ArgumentSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* ArgumentSet.swift */; };
 		OBJ_101 /* ArgumentSetSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* ArgumentSetSequence.swift */; };
@@ -134,6 +135,7 @@
 		76A8935224B65FD5009B0805 /* TrueURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrueURL.swift; sourceTree = "<group>"; tabWidth = 4; wrapsLines = 1; };
 		76A8935624B66928009B0805 /* Uninstall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uninstall.swift; sourceTree = "<group>"; };
 		76AE456A24BA6CA000072FF5 /* New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
+		76D2BC9C24D0D975007CAB5C /* Tokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 		76DDE2F924B11C7200F24D5E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		"Files::Files::Product" /* Files.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Files.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_13 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 				76A8935624B66928009B0805 /* Uninstall.swift */,
 				766B416824ABEA5700D40106 /* Check.swift */,
 				762A2ADF24A93D23002D0F83 /* Install.swift */,
+				76D2BC9C24D0D975007CAB5C /* Tokens.swift */,
 				76A8935224B65FD5009B0805 /* TrueURL.swift */,
 				762A2AEA24AA8038002D0F83 /* SproutFile.swift */,
 				764215AE24B51CE20099AB32 /* Detail.swift */,
@@ -800,6 +803,7 @@
 			buildActionMask = 0;
 			files = (
 				766B416924ABEA5700D40106 /* Check.swift in Sources */,
+				76D2BC9D24D0D975007CAB5C /* Tokens.swift in Sources */,
 				762A2AE724A94556002D0F83 /* Everything.swift in Sources */,
 				76D4FB5924B51D1D00C1D0DC /* Detail.swift in Sources */,
 				762A2ADD24A93B12002D0F83 /* Root.swift in Sources */,
