@@ -88,6 +88,9 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             "Finished decoding SproutFile.",
             "Obtained package information for \(sproutFile.packageName)."
         )
+
+        // MARK: Make Sure Everything is Ready
+
         var gitHubURL = !useSproutURL ? URL(string: "https://github.com/\(url).git")! : sproutFile.packageGitURL
         printV("Second URL check...")
         if sproutFile.packageGitURL != gitHubURL && !skipPrompts {
@@ -144,6 +147,9 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             }
         }
         printV("User details passed or were created.")
+        
+        // MARK: Clone and Reset to Tag Repo
+        
         print("Cloning \(sproutFile.packageName) from \(gitHubURL)")
         do {
             try shellOut(to: .gitClone(url: gitHubURL), at: repoPath.path)
@@ -176,6 +182,9 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             }
         } catch {}
         print("Cloned package.")
+        
+        // MARK: Build Package
+        
         if newUser {
             print("Build (among others) scripts are provided by the owners of the package, not sprout.")
             print("These scripts can run any command, without your permission.")
@@ -232,6 +241,9 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             }
         }
         print("Successfully built \(sproutFile.packageName)")
+        
+        // MARK: Install Package
+        
         print("Installing package...")
         try sproutFile.installActions.forEach({ (action) in
             switch action {
@@ -268,7 +280,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                 _ = try? File(path: install).delete()
                 do {
                     printV("Creating symlink from built CLI to usr/local/bin.")
-                    try shellOut(to: "ln -s \(sproutCLI.path) \(install)")
+                    try shellOut(to: "ln -s \"\(sproutCLI.path)\" \"\(install)\"")
                     printV("Created symlink.")
                 } catch let error as ShellOutError {
                     print("Unable to create symlink from built CLI to usr/local/bin.")

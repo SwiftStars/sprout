@@ -29,6 +29,8 @@ protocol SPRTCheckFile: SPRTVerbose, SPRTCheckPrompts {
 
 }
 
+// MARK: CheckFile
+
 extension SPRTCheckFile {
     func checkFile(_ SproutFileArray: [String], ifViolates: @escaping ([String], SproutFileBuilder) -> Never) -> SproutFile {
         return SproutFile.decodeFile { () -> SproutFile in
@@ -53,6 +55,7 @@ extension SPRTCheckFile {
                 if inside == nil {
                     Tokens.allCases.forEach { token in
                         if line.hasPrefix(token.id) {
+                            printV("(\(index) Found \(token.id)")
                             if case .bool(let location) = token.key {
                                 sproutFile[keyPath: location] = true
                             } else if case .string(let location) = token.key {
@@ -83,6 +86,8 @@ extension SPRTCheckFile {
         }
     }
 }
+
+// MARK: CheckBuildLine
 
 func checkBuildLine(_ line: String, _ index: Int, _ verbose: Bool) -> (action: SproutFileAction?, end: Bool) {
     let printV: (String) -> Void = { if verbose { print($0) } }
@@ -117,6 +122,8 @@ func checkBuildLine(_ line: String, _ index: Int, _ verbose: Bool) -> (action: S
     printV("(\(index + 1)) Read a shell action. (\(line))")
     return (.shell(line), false)
 }
+
+// MARK: CheckInstallLine
 
 func checkInstallLine(_ line: String, _ index: Int, _ verbose: Bool) -> (action: SproutFileAction?, end: Bool) {
     let printV: (String) -> Void = { if verbose { print($0) } }

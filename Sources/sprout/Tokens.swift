@@ -26,9 +26,12 @@ struct Tokens: CaseIterable {
         .projectName,
         .description,
         .gitURL,
+        .builtCLI,
         .website,
         .cliName,
-        .runOnly
+        .runOnly,
+        .buildActions,
+        .installActions
     ]}
 
     fileprivate init(_ id: String, _ key: CustomKeyPath) {
