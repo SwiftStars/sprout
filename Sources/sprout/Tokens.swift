@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Tokens: CaseIterable {
+struct TLTokens: CaseIterable {
     let id: String
     let key: CustomKeyPath
 
@@ -19,8 +19,8 @@ struct Tokens: CaseIterable {
     static let cliName: Self = .init("cliname:", .string(\.packageCLIName))
     static let runOnly: Self = .init("installonce", .bool(\.runOnly))
 
-    static let buildActions: Self = .init("build", .action(.build))
-    static let installActions: Self = .init("install", .action(.install))
+    static let buildActions: Self = .init("build", .action(.init(0, \.buildActions, checkBuildLine)))
+    static let installActions: Self = .init("install", .action(.init(0, \.installActions, checkInstallLine)))
 
     static var allCases: [Self] {[
         .projectName,
@@ -65,5 +65,27 @@ struct InsideKey: CaseIterable {
         self.hashValue = hash
         self.location = location
         self.check = check
+    }
+}
+
+struct BuildTokens: CaseIterable {
+    let prefix: String
+    let decode: (String) -> SproutFileAction
+    
+    static let echo: Self = .init("echo->", { .echo($0) })
+    static let push: Self = .init("push->", { .push($0) })
+    
+    // NOTE: Keep "shell" last!
+    static let shell: Self = .init("", { .shell($0) })
+    
+    static let allCases: [Self] = [
+        .echo,
+        .push,
+        .shell
+    ]
+    
+    init(_ prefix: String, _ decode: @escaping (String) -> SproutFileAction) {
+        self.prefix = prefix
+        self.decode = decode
     }
 }

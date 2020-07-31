@@ -53,7 +53,7 @@ extension SPRTCheckFile {
                 }
                 if line.hasPrefix("#") || line.isEmpty || line == "" { printV("(\(index + 1)) Empty/Comment Line, ignoring..."); return }
                 if inside == nil {
-                    Tokens.allCases.forEach { token in
+                    TLTokens.allCases.forEach { token in
                         if line.hasPrefix(token.id) {
                             printV("(\(index) Found \(token.id)")
                             if case .bool(let location) = token.key {

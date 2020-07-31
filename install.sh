@@ -9,19 +9,19 @@ fi
 
 echo Creating Directories...
 
-mkdir ~/.sprout
-mkdir ~/.sprout/repos
-mkdir ~/.sprout/bin
+mkdir /usr/local/lib/sprout
+mkdir /usr/local/lib/sprout/repos
+mkdir /usr/local/lib/sprout/bin
 
 echo Created Directories.
 
 echo Cloning Sprout...
 
-git clone https://github.com/SwiftStars/Sprout ~/.sprout/repos/Sprout
+git clone https://github.com/SwiftStars/Sprout /usr/local/lib/sprout/repos/Sprout
 
 echo Cloned Sprout
 
-cd ~/.sprout/repos/Sprout
+cd /usr/local/lib/sprout/repos/Sprout
 
 echo Building Sprout
 
@@ -31,7 +31,7 @@ echo Built Sprout
 
 echo Installing Sprout
 
-cp -f .build/release/sprout ~/.sprout/bin/sprout
-ln -s ~/.sprout/bin/sprout /usr/local/bin/sprout
+cp -f .build/release/sprout /usr/local/lib/sprout/bin/sprout
+ln -s /usr/local/lib/sprout/bin/sprout /usr/local/bin/sprout
 
 echo Finished installing Sprout

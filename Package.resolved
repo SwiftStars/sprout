@@ -23,9 +23,9 @@
         "package": "StdLibX",
         "repositoryURL": "https://github.com/SwiftStars/StdLibX.git",
         "state": {
-          "branch": "master",
-          "revision": "2c123524d598b1a9d2b790c29e644776b3e2e1ac",
-          "version": null
+          "branch": null,
+          "revision": "7811e6030dd97b6774d1b69fd62459821bc31f4c",
+          "version": "0.0.1"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "eb51f949cdd0c9d88abba9ce79d37eb7ea1231d0",
-          "version": "0.2.0"
+          "revision": "7255fd547f70468e19abbac5f7964f1ef309ad92",
+          "version": "0.2.1"
         }
       }
     ]

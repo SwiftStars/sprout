@@ -106,7 +106,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
         var newUser = false
         printV("URL passed second check.")
         printV("Checking user details...")
-        let sproutPath = try? Folder(path: "~/.sprout/")
+        let sproutPath = try? Folder(path: "/usr/local/lib/sprout/")
         if sproutPath == nil {
             print("This appears to be your first time using Sprout. Welcome!")
             printV("Creating Sprout directories...")
@@ -116,40 +116,40 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                 newUser = true
             } catch {
                 print("Could not create a Sprout directory.")
-                print("If you can, create a folder at ~/.sprout/repos and ~/.sprout/bin")
+                print("If you can, create a folder at /usr/local/lib/sprout/repos and /usr/local/lib/sprout/bin")
                 Foundation.exit(1)
             }
         }
         var repoPath = Folder.home
         do {
-            repoPath = try Folder(path: "~/.sprout/repos")
+            repoPath = try Folder(path: "/usr/local/lib/sprout/repos")
         } catch {
             do {
                 repoPath = try Folder.home.createSubfolder(at: ".sprout/repos")
                 newUser = true
             } catch {
                 print("Unable to find or create a directory where repos can be stored.")
-                print("If you can, create a folder at ~/.sprout/repos and ~/.sprout/bin if it doesn't already exist.")
+                print("If you can, create a folder at /usr/local/lib/sprout/repos and /usr/local/lib/sprout/bin if it doesn't already exist.")
                 Foundation.exit(1)
             }
         }
         var binPath = Folder.home
         do {
-            binPath = try Folder(path: "~/.sprout/bin")
+            binPath = try Folder(path: "/usr/local/lib/sprout/bin")
         } catch {
             do {
                 binPath = try Folder.home.createSubfolder(at: ".sprout/bin")
                 newUser = true
             } catch {
                 print("Unable to find or create a directory where repos can be stored.")
-                print("If you can, create a folder at ~/.sprout/bin and ~/.sprout/repos if it doesn't already exist.")
+                print("If you can, create a folder at /usr/local/lib/sprout/bin and /usr/local/lib/sprout/repos if it doesn't already exist.")
                 Foundation.exit(1)
             }
         }
         printV("User details passed or were created.")
-        
+
         // MARK: Clone and Reset to Tag Repo
-        
+
         print("Cloning \(sproutFile.packageName) from \(gitHubURL)")
         do {
             try shellOut(to: .gitClone(url: gitHubURL), at: repoPath.path)
@@ -182,9 +182,9 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             }
         } catch {}
         print("Cloned package.")
-        
+
         // MARK: Build Package
-        
+
         if newUser {
             print("Build (among others) scripts are provided by the owners of the package, not sprout.")
             print("These scripts can run any command, without your permission.")
@@ -241,9 +241,9 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             }
         }
         print("Successfully built \(sproutFile.packageName)")
-        
+
         // MARK: Install Package
-        
+
         print("Installing package...")
         try sproutFile.installActions.forEach({ (action) in
             switch action {

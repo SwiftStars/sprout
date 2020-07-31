@@ -26,7 +26,7 @@ struct SproutDetail: ParsableCommand, SPRTCheckFile {
     func run() throws {
         let repoPath: Folder
         do {
-            repoPath = try Folder(path: "~/.sprout/repos")
+            repoPath = try Folder(path: "/usr/local/lib/sprout/repos")
         } catch {
             print("It looks like you haven't used sprout to install any packages before.")
             print("Please install the package before trying to check details.")

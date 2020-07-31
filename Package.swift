@@ -10,8 +10,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0"),
-        .package(url: "https://github.com/SwiftStars/StdLibX.git", .branch("master")),
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.2.0"),
+        .package(url: "https://github.com/SwiftStars/StdLibX.git", from: "0.0.1"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.2.1"),
         .package(url: "https://github.com/JohnSundell/Files", from: "4.0.0")
     ],
     targets: [

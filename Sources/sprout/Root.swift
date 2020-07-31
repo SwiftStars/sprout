@@ -15,7 +15,6 @@ struct SproutRoot: ParsableCommand {
         subcommands: [SproutInstall.self, SproutCheck.self, SproutDetail.self, SproutUninstall.self, SproutList.self, SproutNew.self],
         defaultSubcommand: SproutInstall.self
     )
-
 }
 
 struct SproutList: ParsableCommand {
@@ -29,7 +28,7 @@ struct SproutList: ParsableCommand {
     var onePerLine: Bool = false
 
     func run() throws {
-        system("ls \(onePerLine ? "-1 " : "")~/.sprout/repos")
+        system("ls \(onePerLine ? "-1 " : "")/usr/local/lib/sprout/repos")
     }
 
 }

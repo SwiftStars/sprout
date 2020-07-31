@@ -25,7 +25,7 @@ struct SproutUninstall: ParsableCommand, SPRTCheckFile {
         printV("Finding package to uninstall.")
         let packagePath: Folder
         do {
-            packagePath = try .init(path: "~/.sprout/repos/\(name)")
+            packagePath = try .init(path: "/usr/local/lib/sprout/repos/\(name)")
         } catch let error as LocationError {
             print("Unable to find a package named \"\(name)\".")
             print("Check the name and try again.")
@@ -88,11 +88,11 @@ struct SproutUninstall: ParsableCommand, SPRTCheckFile {
                     cliName = genName
                 }
                 do {
-                    let file = try File(path: "~/.sprout/bin/\(cliName)")
+                    let file = try File(path: "/usr/local/lib/sprout/bin/\(cliName)")
                     try file.delete()
                 } catch let error as LocationError {
                     print("Unable to find or delete a cli installed.")
-                    print("The cli was installed to \"~/.sprout/bin/\(cliName)\",")
+                    print("The cli was installed to \"/usr/local/lib/sprout/bin/\(cliName)\",")
                     print("and symlinked to \"\(location)\".")
                     print(error.description)
                 }
@@ -106,7 +106,7 @@ struct SproutUninstall: ParsableCommand, SPRTCheckFile {
                         try shellOut(to: "rm \"\(location)\"")
                     } catch let shellError as ShellOutError {
                         print("Unable to find or delete a symlink cli installed.")
-                        print("The cli was installed to \"~/.sprout/bin/\(cliName)\",")
+                        print("The cli was installed to \"/usr/local/lib/sprout/bin/\(cliName)\",")
                         print("and symlinked to \"\(location)\".")
                         print(filesError.description)
                         print(shellError.description)
@@ -118,7 +118,7 @@ struct SproutUninstall: ParsableCommand, SPRTCheckFile {
         do {
             try packagePath.delete()
         } catch let error as LocationError {
-            print("Could not delete repo folder at \"~/.sprout/repos/\(name)\"")
+            print("Could not delete repo folder at \"/usr/local/lib/sprout/repos/\(name)\"")
             print(error.description)
         }
         print("Finished uninstall of \(name).")

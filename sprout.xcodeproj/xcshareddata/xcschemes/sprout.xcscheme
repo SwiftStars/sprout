@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "sprout::sprout"
+               BlueprintIdentifier = "Sprout::sprout"
                BuildableName = "sprout"
                BlueprintName = "sprout"
                ReferencedContainer = "container:sprout.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "sprout::sprout"
+            BlueprintIdentifier = "Sprout::sprout"
             BuildableName = "sprout"
             BlueprintName = "sprout"
             ReferencedContainer = "container:sprout.xcodeproj">

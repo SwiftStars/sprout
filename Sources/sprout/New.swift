@@ -49,7 +49,7 @@ struct SproutNew: ParsableCommand {
         } else if gitURLPrompt.isEmpty { gitURLPrompt = remote! }
         let gitURL = URL(string: gitURLPrompt)!
         gPrint("If you make a cli and there is only one cli that needs to be installed, built cli helps shorten your SproutFile.")
-        gPrint("Built cli is the same as the install command install->bin. It copies the cli at the location provided to ~/.sprout/bin where it is SymLinked to /usr/local/bin/")
+        gPrint("Built cli is the same as the install command install->bin. It copies the cli at the location provided to /usr/local/lib/sprout/bin where it is SymLinked to /usr/local/bin/")
         gPrint("Of course, this is only useful if your project is a cli, but if it's not (or you have multiple) you can just press enter.")
         var cliName: String? = prompt("Where is the built cli location: (if applicable) ")
         if cliName!.isEmpty { cliName = nil }
