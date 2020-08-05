@@ -152,10 +152,10 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
 
         print("Cloning \(sproutFile.packageName) from \(gitHubURL)")
         do {
-            try shellOut(to: .gitClone(url: gitHubURL), at: repoPath.path)
+            try shellOut(to: .gitClone(url: gitHubURL, to: sproutFile.packageDirectory), at: repoPath.path)
         } catch let cloneError as ShellOutError {
             do {
-                try shellOut(to: .gitPull(), at: try repoPath.subfolder(at: sproutFile.packageName).path)
+                try shellOut(to: .gitPull(), at: try repoPath.subfolder(named: sproutFile.packageDirectory).path)
             } catch let pullError as ShellOutError {
                 print("Unable to update package.")
                 print("You might already be on the latest version of \(sproutFile.packageName).")
@@ -168,8 +168,16 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                 print(cloneError.description)
             }
         }
+        let projectPath: Folder
         do {
-            let tagList = try shellOut(to: "git tag --list", at: repoPath.path)
+            projectPath = try repoPath.subfolder(named: sproutFile.packageDirectory)
+        } catch let error as LocationError {
+            print("Unable to resolve project directory after clone.")
+            print(error.description)
+            Foundation.exit(1)
+        }
+        do {
+            let tagList = try shellOut(to: "git tag --list", at: projectPath.path)
             let tagArray = tagList.split(separator: "\n")
             if !(tagArray.isEmpty) {
                 if let currentTag = VersionGrab(tagArray) {
@@ -199,7 +207,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             switch action {
             case .shell(let cmd):
                 do {
-                    try shellOut(to: cmd, at: repoPath.subfolder(at: sproutFile.packageName).path)
+                    try shellOut(to: cmd, at: projectPath.path)
                 } catch let error as ShellOutError {
                     print("A command part of the build actions for \(sproutFile.packageName) failed.")
                     print(error.description)
@@ -249,7 +257,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
             switch action {
             case .shell(let cmd):
                 do {
-                    try shellOut(to: cmd, at: repoPath.subfolder(at: sproutFile.packageName).path)
+                    try shellOut(to: cmd, at: projectPath.path)
                 } catch let error as ShellOutError {
                     print("A command part of the install actions for \(sproutFile.packageName) failed.")
                     print(error.description)
@@ -259,7 +267,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                 var cli: File
                 do {
                     printV("Obtaining built CLI...")
-                    cli = try repoPath.subfolder(at: sproutFile.packageName).file(at: find)
+                    cli = try projectPath.file(at: find)
                     printV("Obtained cli.")
                 } catch let error as LocationError {
                     print("Unable to find fully built cli to install.")
@@ -291,7 +299,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
                 var app: File?
                 do {
                     printV("Obtaining app to install...")
-                    app = try repoPath.subfolder(at: sproutFile.packageName).file(at: find)
+                    app = try projectPath.file(at: find)
                     printV("Obtained app.")
                 } catch let error as LocationError {
                     print("Unable to find app to install.")
@@ -338,7 +346,7 @@ struct SproutInstall: ParsableCommand, SPRTVerbose, SPRTCheckFile {
         if sproutFile.runOnly {
             print("Cleaning up installation...")
             do {
-                _ = try repoPath.subfolder(at: sproutFile.packageName).delete()
+                _ = try projectPath.delete()
             } catch let error as LocationError {
                 print("Unable to clean up installation (for an install once package).")
                 print(error.description)

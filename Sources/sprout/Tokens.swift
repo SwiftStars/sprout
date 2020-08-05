@@ -12,6 +12,7 @@ struct TLTokens: CaseIterable {
     let key: CustomKeyPath
 
     static let projectName: Self = .init("projectname:", .string(\.packageName))
+    static let gitDir: Self = .init("projectdir:", .string(\.packageDirectory))
     static let description: Self = .init("description:", .string(\.packageDescription))
     static let gitURL: Self = .init("giturl:", .url(\.packageGitURL))
     static let builtCLI: Self = .init("builtcli:", .single(\.installActions, { .installBin($0, $0.split(separator: "/").last!) }))

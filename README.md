@@ -66,7 +66,7 @@ SproutFile passed checks.
 ```
 **Notes:** (some will to change)
 - None of the `%` values can have spaces...
-- `projectname` should be the same as the name of the directory git clones into.
+- `projectname` is the display name of your project.
 - `giturl` is compared to the user's input and will ask if the user wants use their or your url.
 - `builtcli` is the same as the install action `install->bin` and will run before install actions.
 - `snapto` (coming soon) will snap the version of your project to a given value (like `latest`, v2.0, `branch->master`, `beta`...)
@@ -75,6 +75,7 @@ SproutFile passed checks.
 - `install->bin` and `install->app` are both custom commands.
 - Commands are run in `sh`. If you want them to run in a different shell, write `<shell> -c "<command>"`
 - To push custom output put `echo-> <message>` for just a message or `push-> <command>` for a command.
+- `projectdir` is where your project will be placed into (`projectname` will be used if `projectdir` is not defined)
 
 ## Contributing
 Feel free to contribute! I don't have a set vision for Sprout yet, so anything is welcome.

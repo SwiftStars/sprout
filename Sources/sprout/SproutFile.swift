@@ -13,6 +13,7 @@ struct SproutFile {
     let packageGitURL: URL
     let packageWebpage: URL?
     let packageCLIName: String?
+    var packageDirectory: String
 
     let runOnly: Bool
 
@@ -32,6 +33,7 @@ struct SproutFileBuilder {
     var packageGitURL: URL?
     var packageWebpage: URL?
     var packageCLIName: String?
+    var packageDirectory: String?
 
     var runOnly: Bool?
 
@@ -53,6 +55,7 @@ struct SproutFileBuilder {
             packageGitURL: packageGitURL!,
             packageWebpage: packageWebpage,
             packageCLIName: packageCLIName,
+            packageDirectory: packageDirectory ?? packageName!.replacingOccurrences(of: " ", with: "-"),
             runOnly: runOnly ?? false,
             buildActions: buildActions!,
             installActions: installActions!
